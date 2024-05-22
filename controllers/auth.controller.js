@@ -9,19 +9,18 @@ export const login = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
-      return res.status(400).json({ message: "User dosen't exists" });
+      return res.status(400).json({ error: "User dosen't exists" });
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
     if (!isPasswordCorrect) {
-      return res.status(400).json({ message: "Incorrect Password" });
+      return res.status(400).json({ error: "Incorrect Password" });
     }
 
     const token = generateToken(user._id);
 
     return res.status(201).json({
-      message: "User login successfull",
       _id: user._id,
       fullName: user.fullName,
       username: user.username,
@@ -30,7 +29,7 @@ export const login = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 };
 
@@ -39,13 +38,13 @@ export const signUp = async (req, res) => {
     const { fullName, username, password, confirmPassword, gender } = req.body;
 
     if (password !== confirmPassword) {
-      return res.status(400).json({ message: "Passwords don't match" });
+      return res.status(400).json({ error: "Passwords don't match" });
     }
 
     const user = await User.findOne({ username });
 
     if (user) {
-      return res.status(400).json({ message: "UserName already exists" });
+      return res.status(400).json({ error: "UserName already exists" });
     }
 
     const maleProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`;
@@ -67,7 +66,6 @@ export const signUp = async (req, res) => {
     const token = generateToken(newUser._id);
 
     return res.status(201).json({
-      message: "User signup successfull",
       _id: newUser._id,
       fullName: newUser.fullName,
       username: newUser.username,
@@ -76,6 +74,6 @@ export const signUp = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 };

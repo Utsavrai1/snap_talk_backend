@@ -32,7 +32,7 @@ export const sendMessage = async (req, res) => {
     return res.status(201).json(newMessage);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 };
 
@@ -54,6 +54,6 @@ export const getMessages = async (req, res) => {
     return res.status(200).json(messages);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Something went wrong" });
+    return res.status(500).json({ error: "Something went wrong" });
   }
 };
