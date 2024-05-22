@@ -1,7 +1,8 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
+
+import { app, server } from "./socket/socket.js";
 
 // Routes Import
 import authRoutes from "./routes/auth.routes.js";
@@ -10,10 +11,6 @@ import userRoutes from "./routes/user.routes.js";
 
 //Database Import
 import connectToMongoDB from "./db/connect_db.js";
-
-const app = express();
-
-dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
@@ -29,7 +26,7 @@ app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/messages", messageRoutes);
 app.use("/api/v1/users", userRoutes);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   connectToMongoDB();
   console.log(`Server Running on port http://localhost:${PORT}`);
 });
