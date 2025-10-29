@@ -2,7 +2,7 @@
 
 SnapTalk is a real-time chat application. This repository contains the backend code built using Express.js and Node.js, with MongoDB as the database.
 
-## Features
+## Features 
 
 - User authentication
 - Real-time messaging
